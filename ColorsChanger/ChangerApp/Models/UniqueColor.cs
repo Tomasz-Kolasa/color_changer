@@ -10,6 +10,10 @@ namespace ColorsChanger.ChangerApp.Models
         /// </summary>
         public ProjectColour Orig;
         public Color Color = new Color();
+        /// <summary>
+        /// user choosen color to replace the original
+        /// </summary>
+        public string Replace = string.Empty;
 
         public UniqueColor(ProjectColour orig, Color color)
         {

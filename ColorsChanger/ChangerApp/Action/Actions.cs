@@ -1,4 +1,7 @@
-﻿namespace ColorsChanger.ChangerApp.Action
+﻿using ColorsChanger.ChangerApp.Models;
+using System.Windows.Forms;
+
+namespace ColorsChanger.ChangerApp.Action
 {
     public class Actions
     {
@@ -21,6 +24,13 @@
 
             var action = new PutColorAction(senderGroupBoxRow);
             action.handleLeaveTextBox();
+        }
+
+        public void button1_Click(object sender, Control.ControlCollection flowLayoutPanel1_controls, CheckBox checkBox)
+        {
+            // _app.uniqueColors;
+            var colorReplacer = new ReplaceColors(_app.uniqueColors, flowLayoutPanel1_controls);
+            colorReplacer.Replace(checkBox.Checked);
         }
 
         /// <summary>

@@ -10,6 +10,7 @@ namespace ColorsChanger
         public Form1()
         {
             InitializeComponent();
+            button1.Click += new System.EventHandler((sender, e)=>_actions.button1_Click(sender, flowLayoutPanel1.Controls, checkBox1));
         }
 
         public void AddActions(Actions actions)
@@ -52,11 +53,6 @@ namespace ColorsChanger
         public void AddRow(GroupBox row)
         {
             flowLayoutPanel1.Controls.Add(row);
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
-        {
-            
         }
     }
 }
