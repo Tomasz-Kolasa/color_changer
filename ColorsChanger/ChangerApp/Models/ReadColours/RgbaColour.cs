@@ -2,8 +2,13 @@
 {
     public class RgbaColour : ProjectColour
     {
-        static public string Pattern = "rgba[(](?:\\s*0*(?:\\d\\d?(?:\\.\\d+)?(?:\\s*%)?|\\.\\d+\\s*%|100(?:\\.0*)?\\s*%|(?:1\\d\\d|2[0-4]\\d|25[0-5])(?:\\.\\d+)?)\\s*,){3}\\s*0*(?:\\.\\d+|1(?:\\.0*)?)\\s*[)]";
+        static public new string Pattern = "rgba[(](?:\\s*0*(?:\\d\\d?(?:\\.\\d+)?(?:\\s*%)?|\\.\\d+\\s*%|100(?:\\.0*)?\\s*%|(?:1\\d\\d|2[0-4]\\d|25[0-5])(?:\\.\\d+)?)\\s*,){3}\\s*0*(?:\\.\\d+|1(?:\\.0*)?)\\s*[)]";
         public RgbaColour(string rawValue) : base(rawValue) { }
+
+        public RgbaColour()
+        {
+        }
+
         public override string GetStandarizedName(string rawColor)
         {
             var open = rawColor.IndexOf("(");

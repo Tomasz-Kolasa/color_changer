@@ -26,20 +26,13 @@ namespace ColorsChanger.ChangerApp.Action
             action.handleLeaveTextBox();
         }
 
-        public void button1_Click(object sender, Control.ControlCollection flowLayoutPanel1_controls, CheckBox checkBox)
-        {
-            // _app.uniqueColors;
-            var colorReplacer = new ReplaceColors(_app.uniqueColors, flowLayoutPanel1_controls);
-            colorReplacer.Replace(checkBox.Checked);
-        }
-
         /// <summary>
         /// Handles "replace" button pressed
         /// </summary>
-        public void ReplaceColors()
+        public void button1_Click(object sender, Control.ControlCollection flowLayoutPanel1_controls, CheckBox checkBox)
         {
-            var uniqueColors = _app.uniqueColors;
-            MessageBox.Show("ReplaceColors");
+            var colorReplacer = new ReplaceColors(_app.filesManager, flowLayoutPanel1_controls);
+            colorReplacer.Replace(checkBox.Checked);
         }
     }
 }

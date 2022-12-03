@@ -120,5 +120,26 @@ namespace ColorsChanger.ChangerApp.Converter
 
             return color;
         }
+
+        static public bool IsValidColor(string val, string type)
+        {
+            string pattern = "^";
+
+            switch (type)
+            {
+                case "Hex6Colour":
+                    pattern += Hex6Colour.Pattern; break;
+                case "Hex8Colour":
+                    pattern += Hex8Colour.Pattern; break;
+                case "RgbaColour":
+                    pattern += RgbaColour.Pattern; break;
+                case "RgbColour":
+                    pattern += RgbColour.Pattern; break;
+            }
+
+            pattern += "$";
+
+            return Regex.IsMatch(val, pattern);
+        }
     }
 }

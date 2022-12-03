@@ -7,20 +7,18 @@ namespace ColorsChanger.ChangerApp.Files
 {
     internal class ColorReader
     {
-        private readonly string _projectPath = string.Empty;
+        private readonly FilesManager _filesManager;
         private List<UniqueColor> _uniqueColors = new List<UniqueColor>();
-        private string[] _files = new string[] { };
 
-        public ColorReader(string projectPath)
+        public ColorReader(FilesManager filesManager)
         {
-            _projectPath = projectPath;
-            _files = Directory.GetFiles(_projectPath, "*.*", SearchOption.AllDirectories);
+            _filesManager = filesManager;
         }
 
         public void BuildUniqueColorsList()
         {
 
-            foreach (var file in _files)
+            foreach (var file in _filesManager.GetProjectFilesPaths())
             {
                 var content = File.ReadAllText(file);
 

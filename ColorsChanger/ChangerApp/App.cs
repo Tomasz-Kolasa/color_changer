@@ -9,7 +9,7 @@ namespace ColorsChanger.ChangerApp
         private readonly Form1 _form;
         public List<UniqueColor> uniqueColors = new List<UniqueColor>();
         private readonly Actions _actions;
-        private readonly FilesManager _filesManager = new FilesManager();
+        public readonly FilesManager filesManager = new FilesManager();
 
         public App(Form1 form)
         {
@@ -20,7 +20,7 @@ namespace ColorsChanger.ChangerApp
 
         public void Run()
         {
-            uniqueColors = _filesManager.GetUniqueColors();
+            uniqueColors = filesManager.BuildAndGetUniqueColors();
             _form.AddUniqueColors(uniqueColors);
         }
 

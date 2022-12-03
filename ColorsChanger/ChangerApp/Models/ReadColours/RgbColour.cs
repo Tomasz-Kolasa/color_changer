@@ -2,7 +2,7 @@
 {
     public class RgbColour : ProjectColour
     {
-        static public string Pattern = "rgb\\(\\d+\\s?,\\s?\\d+\\s?,\\s?\\d+\\)";
+        static public new string Pattern = "rgb\\(\\d+\\s?,\\s?\\d+\\s?,\\s?\\d+\\)";
         public RgbColour(string rawColor):base(rawColor)
         {
 

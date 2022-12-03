@@ -17,7 +17,7 @@ namespace ColorsChanger.ChangerApp.Action
             var colorType = _row.Name.Split(":")[1];
             var textBoxVal = _row.Controls.Find("tbOutputColouroOrig", false)[0].Text;
 
-            if(IsValidColor(textBoxVal, colorType))
+            if(ConvertColor.IsValidColor(textBoxVal, colorType))
             {
                 Color drawColor;
 
@@ -51,25 +51,6 @@ namespace ColorsChanger.ChangerApp.Action
             //MessageBox.Show($"Name: {_row.Name.ToString()}, type: {colorType}");
         }
 
-        private bool IsValidColor(string val, string type)
-        {
-            string pattern = "^";
 
-            switch(type)
-            {
-                case "Hex6Colour":
-                    pattern += Hex6Colour.Pattern; break;
-                case "Hex8Colour":
-                    pattern += Hex8Colour.Pattern; break;
-                case "RgbaColour":
-                    pattern += RgbaColour.Pattern; break;
-                case "RgbColour":
-                    pattern += RgbColour.Pattern; break;
-            }
-
-            pattern += "$";
-
-            return Regex.IsMatch(val, pattern);
-        }
     }
 }
