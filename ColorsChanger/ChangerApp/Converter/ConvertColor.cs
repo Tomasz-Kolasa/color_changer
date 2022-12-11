@@ -75,7 +75,10 @@ namespace ColorsChanger.ChangerApp.Converter
         static public string ToHtml(Color color)
         {
             var html = ColorTranslator.ToHtml(color);
-            if(color.A.ToString() != "255")
+
+            Type t = color.GetType();
+
+            if(color.A.ToString() != "255" )
             {
                 html += color.A.ToString("X");
             }

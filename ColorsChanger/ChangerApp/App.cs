@@ -21,7 +21,7 @@ namespace ColorsChanger.ChangerApp
         public void Run()
         {
             uniqueColors = filesManager.BuildAndGetUniqueColors();
-            _form.AddUniqueColors(uniqueColors);
+            _form.AddUniqueColorsToWinFormWindow(uniqueColors);
         }
 
         public Form GetForm()

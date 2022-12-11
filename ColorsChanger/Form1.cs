@@ -22,7 +22,7 @@ namespace ColorsChanger
         /// Lists unique colors rows in windows form
         /// </summary>
         /// <param name="uniqueColors">List of scanned unique colors</param>
-        public void AddUniqueColors(List<UniqueColor> uniqueColors)
+        public void AddUniqueColorsToWinFormWindow(List<UniqueColor> uniqueColors)
         {
             foreach(var color in uniqueColors)
             {

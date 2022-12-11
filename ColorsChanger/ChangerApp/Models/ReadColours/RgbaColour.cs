@@ -2,7 +2,7 @@
 {
     public class RgbaColour : ProjectColour
     {
-        static public new string Pattern = "rgba[(](?:\\s*0*(?:\\d\\d?(?:\\.\\d+)?(?:\\s*%)?|\\.\\d+\\s*%|100(?:\\.0*)?\\s*%|(?:1\\d\\d|2[0-4]\\d|25[0-5])(?:\\.\\d+)?)\\s*,){3}\\s*0*(?:\\.\\d+|1(?:\\.0*)?)\\s*[)]";
+        static public new string Pattern = "rgba\\((\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d*(?:\\.\\d+)?)\\)";
         public RgbaColour(string rawValue) : base(rawValue) { }
 
         public RgbaColour()

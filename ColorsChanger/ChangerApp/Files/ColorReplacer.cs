@@ -2,6 +2,7 @@
 using ColorsChanger.ChangerApp.Models;
 using ColorsChanger.ChangerApp.Models.ReadColours;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Text.RegularExpressions;
 
 namespace ColorsChanger.ChangerApp.Files
@@ -9,61 +10,77 @@ namespace ColorsChanger.ChangerApp.Files
     internal class ColorReplacer
     {
         private readonly FilesManager _filesManager;
-        //private readonly List<Type> _searchedColorTypes= new List<Type>() { };
+
+        private readonly string _placeholder = @"{{#REPLACE#}}";
         public ColorReplacer(FilesManager filesManager)
         {
-            _filesManager= filesManager;
-            AddColorsTypes();
-        }
-
-        private void AddColorsTypes()
-        {
-            //_searchedColorTypes.AddRange(
-            //    new List<Type>() { 
-            //        typeof(Hex6Colour),
-            //        typeof(Hex8Colour),
-            //        typeof(RgbaColour),
-            //        typeof(RgbColour),
-            //    });
+            _filesManager = filesManager;
         }
 
         public void ReplaceColorsInFiles()
         {
-            foreach(var filePath in _filesManager.GetProjectFilesPaths())
+            foreach (var filePath in _filesManager.GetProjectFilesPaths())
             {
-                // var fileContent = File.ReadAllText(filePath);
+                var fileContent = File.ReadAllText(filePath);
 
-                var fileContent = "#aaaaaa   #ffffff   #ffffffff  rgba(1,1,1,1) rgb(1,1,1)";
+                // string fileContent = "#aaaaaa   #ffffff   #ffffffff  rgba(1,1,1,1) rgb(1,1,1)";
 
-                var matchList = Regex.Matches(fileContent, Hex8Colour.Pattern).ToArray();
-                var hex8list = matchList.Cast<Match>().Select(match => match.Value).ToList();
-                fileContent = Regex.Replace(fileContent, Hex8Colour.Pattern, "{{#HEX8#}}");
+                ReplaceHex8(ref fileContent);
+                ReplaceHex6(ref fileContent);
+                ReplaceRgb(ref fileContent);
+                ReplaceRgba(ref fileContent);
 
-                matchList = Regex.Matches(fileContent, Hex6Colour.Pattern).ToArray();
-                var hex6list = matchList.Cast<Match>().Select(match => match.Value).ToList();
-                fileContent = Regex.Replace(fileContent, Hex6Colour.Pattern, "{{#HEX6#}}");
-
-                matchList = Regex.Matches(fileContent, RgbColour.Pattern).ToArray();
-                var rgblist = matchList.Cast<Match>().Select(match => match.Value).ToList();
-                fileContent = Regex.Replace(fileContent, RgbColour.Pattern, "{{#RGB#}}");
-
-                matchList = Regex.Matches(fileContent, RgbaColour.Pattern).ToArray();
-                var rgbalist = matchList.Cast<Match>().Select(match => match.Value).ToList();
-                fileContent = Regex.Replace(fileContent, RgbaColour.Pattern, "{{#RGBA#}}");
-
-                foreach (Match match in Regex.Matches(fileContent, Hex6Colour.Pattern))
-                {
-                    //(match.Value);
-                    //ConvertColor.Hex6ToColor(color)
-                }
-
-                foreach (UniqueColor uniqueColor in _filesManager.GetUniqueColorsList())
-                {
-                    //var projColor = Activator.CreateInstance(uniqueColor.Orig.GetType());
-
-                    
-                }
+                // now replace the file
+                // ...
             }
+
+
+        }
+
+        private void ReplaceHex8(ref string fileContent)
+        {
+            var matchList = Regex.Matches(fileContent, Hex8Colour.Pattern).ToList();
+            var hex8Arr = matchList.Cast<Match>().Select(match => match.Value).ToArray();
+            fileContent = Regex.Replace(fileContent, Hex8Colour.Pattern, _placeholder);
+
+            // loop through the list of matched hex8 colors found in a file
+            for (var i = 0; i < hex8Arr.Length; i++)
+            {
+                var hex8Color = new Hex8Colour(hex8Arr[i]);
+
+                // get a list of unique colors (also containing new colors)
+                var uniqueList = _filesManager.GetUniqueColorsList();
+
+                // for each colour found in file there is a replace color on unique colors list
+                var replaceColor = uniqueList.Where(c => c.Orig.Value == hex8Color.Value);
+
+                // replace the color matched in the current file with new one
+                hex8Arr[i] = replaceColor.First().ReplaceVal;
+            }
+
+            // now we have hex8Arr array of new colors to replace the placeholders _placeholder in file
+            var rx = new Regex(_placeholder);
+
+            foreach (var newColor in hex8Arr)
+            {
+                // always replace the first match
+                fileContent = rx.Replace(fileContent, newColor, 1);
+            }
+        }
+
+        private void ReplaceHex6(ref string fileContent)
+        {
+
+        }
+
+        private void ReplaceRgb(ref string fileContent)
+        {
+
+        }
+
+        private void ReplaceRgba(ref string fileContent)
+        {
+
         }
     }
 }
