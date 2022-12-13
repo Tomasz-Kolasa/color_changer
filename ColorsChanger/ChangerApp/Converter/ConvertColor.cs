@@ -11,9 +11,9 @@ namespace ColorsChanger.ChangerApp.Converter
             int alpha = 255;
             int red, green, blue;
 
-            red = int.Parse( hex6Colour.Value.Substring(1, 2), System.Globalization.NumberStyles.HexNumber );
-            green = int.Parse(hex6Colour.Value.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-            blue = int.Parse(hex6Colour.Value.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
+            red = int.Parse( hex6Colour.StandarizedValue.Substring(1, 2), System.Globalization.NumberStyles.HexNumber );
+            green = int.Parse(hex6Colour.StandarizedValue.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
+            blue = int.Parse(hex6Colour.StandarizedValue.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
 
             return Color.FromArgb(alpha, red, green, blue);
         }
@@ -22,10 +22,10 @@ namespace ColorsChanger.ChangerApp.Converter
         {
             int alpha, red, green, blue;
 
-            red = int.Parse(hex8Colour.Value.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
-            green = int.Parse(hex8Colour.Value.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
-            blue = int.Parse(hex8Colour.Value.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
-            alpha = int.Parse(hex8Colour.Value.Substring(7, 2), System.Globalization.NumberStyles.HexNumber);
+            red = int.Parse(hex8Colour.StandarizedValue.Substring(1, 2), System.Globalization.NumberStyles.HexNumber);
+            green = int.Parse(hex8Colour.StandarizedValue.Substring(3, 2), System.Globalization.NumberStyles.HexNumber);
+            blue = int.Parse(hex8Colour.StandarizedValue.Substring(5, 2), System.Globalization.NumberStyles.HexNumber);
+            alpha = int.Parse(hex8Colour.StandarizedValue.Substring(7, 2), System.Globalization.NumberStyles.HexNumber);
 
             return Color.FromArgb(alpha, red, green, blue);
         }
@@ -34,10 +34,10 @@ namespace ColorsChanger.ChangerApp.Converter
         {
             int alpha, red, green, blue;
 
-            var open = rgbaColour.Value.IndexOf("(");
-            var close = rgbaColour.Value.IndexOf(")");
+            var open = rgbaColour.StandarizedValue.IndexOf("(");
+            var close = rgbaColour.StandarizedValue.IndexOf(")");
 
-            var txt = rgbaColour.Value.Substring(open + 1, close - open - 1);
+            var txt = rgbaColour.StandarizedValue.Substring(open + 1, close - open - 1);
 
             string[] values = txt.Split(',');
 
@@ -58,10 +58,10 @@ namespace ColorsChanger.ChangerApp.Converter
         {
             int alpha=255, red, green, blue;
 
-            var open = rgbColour.Value.IndexOf("(");
-            var close = rgbColour.Value.IndexOf(")");
+            var open = rgbColour.StandarizedValue.IndexOf("(");
+            var close = rgbColour.StandarizedValue.IndexOf(")");
 
-            var txt = rgbColour.Value.Substring(open + 1, close - open - 1);
+            var txt = rgbColour.StandarizedValue.Substring(open + 1, close - open - 1);
 
             string[] values = txt.Split(',');
 

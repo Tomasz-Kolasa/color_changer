@@ -33,7 +33,7 @@ namespace ColorsChanger.ChangerApp.Files
                 {
                     var color = new Hex8Colour(match.Value);
 
-                    if (_uniqueColors.Where(c => c.Color.Equals(ConvertColor.Hex8ToColor(color))).ToList().Count == 0)
+                    if (_uniqueColors.Where(c => c.DrawingColor.Equals(ConvertColor.Hex8ToColor(color))).ToList().Count == 0)
                     {
                         _uniqueColors.Add(new UniqueColor(color, ConvertColor.Hex8ToColor(color)));
                     }
@@ -45,7 +45,7 @@ namespace ColorsChanger.ChangerApp.Files
                 {
                     var color = new Hex6Colour(match.Value);
 
-                    if (_uniqueColors.Where(c => c.Color.Equals(ConvertColor.Hex6ToColor(color))).ToList().Count == 0)
+                    if (_uniqueColors.Where(c => c.DrawingColor.Equals(ConvertColor.Hex6ToColor(color))).ToList().Count == 0)
                     {
                         _uniqueColors.Add(new UniqueColor(color, ConvertColor.Hex6ToColor(color)));
                     }
@@ -57,7 +57,7 @@ namespace ColorsChanger.ChangerApp.Files
                 {
                     var color = new RgbaColour(match.Value);
 
-                    if (_uniqueColors.Where(c => c.Color.Equals(ConvertColor.RgbaToColor(color))).ToList().Count == 0)
+                    if (_uniqueColors.Where(c => c.DrawingColor.Equals(ConvertColor.RgbaToColor(color))).ToList().Count == 0)
                     {
                         _uniqueColors.Add(new UniqueColor(color, ConvertColor.RgbaToColor(color)));
                     }
@@ -69,7 +69,7 @@ namespace ColorsChanger.ChangerApp.Files
                 {
                     var color = new RgbColour(match.Value);
 
-                    if (_uniqueColors.Where(c => c.Color.Equals(ConvertColor.RgbToColor(color))).ToList().Count == 0)
+                    if (_uniqueColors.Where(c => c.DrawingColor.Equals(ConvertColor.RgbToColor(color))).ToList().Count == 0)
                     {
                         _uniqueColors.Add(new UniqueColor(color, ConvertColor.RgbToColor(color)));
                     }

@@ -3,6 +3,7 @@
     public class RgbaColour : ProjectColour
     {
         static public new string Pattern = "rgba\\((\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d{1,3}),\\s*(\\d*(?:\\.\\d+)?)\\)";
+        static public new string Placeholder = @"{{#PLACEHOLDER_RGBA#}}";
         public RgbaColour(string rawValue) : base(rawValue) { }
 
         public RgbaColour()

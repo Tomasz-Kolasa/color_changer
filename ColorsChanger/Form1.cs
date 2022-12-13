@@ -29,19 +29,19 @@ namespace ColorsChanger
                 var row = new GroupBoxRow();
 
                 var id = uniqueColors.IndexOf(color).ToString();
-                var arr = color.Orig.GetType().ToString().Split(".");
+                var arr = color.PrjOrig.GetType().ToString().Split(".");
                 var colorType = arr[arr.Length - 1];
 
                 row.groupBoxRow.Name = id + ":" + colorType;
                     
 
-                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.Color);
-                row.tbInputColourOrig.Text = color.Orig.Value;
-                row.panelInColour.BackColor = color.Color;
+                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.DrawingColor);
+                row.tbInputColourOrig.Text = color.PrjOrig.StandarizedValue;
+                row.panelInColour.BackColor = color.DrawingColor;
 
-                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.Color);
-                row.tbOutputColouroOrig.Text = color.Orig.Value;
-                row.panelOutColour.BackColor = color.Color;
+                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.DrawingColor);
+                row.tbOutputColouroOrig.Text = color.PrjOrig.StandarizedValue;
+                row.panelOutColour.BackColor = color.DrawingColor;
 
                 row.tbOutputColouroOrig.Leave += new EventHandler((sender, e) => _actions.tbOutputColourRgba_Leave(sender, e, row.groupBoxRow));
 

@@ -1,8 +1,4 @@
-﻿using ColorsChanger.ChangerApp.Converter;
-using ColorsChanger.ChangerApp.Models;
-using ColorsChanger.ChangerApp.Models.ReadColours;
-using System.Drawing;
-using System.Drawing.Text;
+﻿using ColorsChanger.ChangerApp.Models.ReadColours;
 using System.Text.RegularExpressions;
 
 namespace ColorsChanger.ChangerApp.Files
@@ -11,7 +7,6 @@ namespace ColorsChanger.ChangerApp.Files
     {
         private readonly FilesManager _filesManager;
 
-        private readonly string _placeholder = @"{{#REPLACE#}}";
         public ColorReplacer(FilesManager filesManager)
         {
             _filesManager = filesManager;
@@ -23,64 +18,55 @@ namespace ColorsChanger.ChangerApp.Files
             {
                 var fileContent = File.ReadAllText(filePath);
 
-                // string fileContent = "#aaaaaa   #ffffff   #ffffffff  rgba(1,1,1,1) rgb(1,1,1)";
+                var h8Arr = ExtractColorsPutPlaceholders(ref fileContent, Hex8Colour.Pattern, Hex8Colour.Placeholder);
+                var h6Arr = ExtractColorsPutPlaceholders(ref fileContent, Hex6Colour.Pattern, Hex6Colour.Placeholder);
+                var rgbArr = ExtractColorsPutPlaceholders(ref fileContent, RgbColour.Pattern, RgbColour.Placeholder);
+                var rgbaArr = ExtractColorsPutPlaceholders(ref fileContent, RgbaColour.Pattern, RgbaColour.Placeholder);
 
-                ReplaceHex8(ref fileContent);
-                ReplaceHex6(ref fileContent);
-                ReplaceRgb(ref fileContent);
-                ReplaceRgba(ref fileContent);
+                ReplaceHex8(ref fileContent, h8Arr);
+                //ReplaceHex6(ref fileContent);
+                //ReplaceRgb(ref fileContent);
+                //ReplaceRgba(ref fileContent);
 
                 // now replace the file
                 // ...
             }
-
-
         }
 
-        private void ReplaceHex8(ref string fileContent)
+        private string[] ExtractColorsPutPlaceholders(ref string fileContent, string pattern, string placeholder)
         {
-            var matchList = Regex.Matches(fileContent, Hex8Colour.Pattern).ToList();
-            var hex8Arr = matchList.Cast<Match>().Select(match => match.Value).ToArray();
-            fileContent = Regex.Replace(fileContent, Hex8Colour.Pattern, _placeholder);
+            var matchList = Regex.Matches(fileContent, pattern).ToList();
+            fileContent = Regex.Replace(fileContent, pattern, placeholder);
 
+            var hex8Arr = matchList.Cast<Match>().Select(match => match.Value).ToArray();
+            return hex8Arr;
+        }
+
+        private void ReplaceHex8(ref string fileContent, string[] h8Arr)
+        {
             // loop through the list of matched hex8 colors found in a file
-            for (var i = 0; i < hex8Arr.Length; i++)
+            for (var i = 0; i < h8Arr.Length; i++)
             {
-                var hex8Color = new Hex8Colour(hex8Arr[i]);
+                var hex8Color = new Hex8Colour(h8Arr[i]);
 
                 // get a list of unique colors (also containing new colors)
                 var uniqueList = _filesManager.GetUniqueColorsList();
 
                 // for each colour found in file there is a replace color on unique colors list
-                var replaceColor = uniqueList.Where(c => c.Orig.Value == hex8Color.Value);
+                var replaceColor = uniqueList.Where(c => c.PrjOrig.StandarizedValue == hex8Color.StandarizedValue);
 
                 // replace the color matched in the current file with new one
-                hex8Arr[i] = replaceColor.First().ReplaceVal;
+                h8Arr[i] = replaceColor.First().ReplaceVal;
             }
 
             // now we have hex8Arr array of new colors to replace the placeholders _placeholder in file
-            var rx = new Regex(_placeholder);
+            var rx = new Regex(Hex8Colour.Placeholder);
 
-            foreach (var newColor in hex8Arr)
+            foreach (var newColor in h8Arr)
             {
                 // always replace the first match
                 fileContent = rx.Replace(fileContent, newColor, 1);
             }
-        }
-
-        private void ReplaceHex6(ref string fileContent)
-        {
-
-        }
-
-        private void ReplaceRgb(ref string fileContent)
-        {
-
-        }
-
-        private void ReplaceRgba(ref string fileContent)
-        {
-
         }
     }
 }

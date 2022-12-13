@@ -3,6 +3,7 @@
     public class RgbColour : ProjectColour
     {
         static public new string Pattern = "rgb\\(\\d+\\s?,\\s?\\d+\\s?,\\s?\\d+\\)";
+        static public new string Placeholder = @"{{#PLACEHOLDER_RGB#}}";
         public RgbColour(string rawColor):base(rawColor)
         {
 

@@ -8,8 +8,9 @@ namespace ColorsChanger.ChangerApp.Models
         /// (e.g. #FFFFFF vs rgba(255,255,255, 1)) only the first matched format is remembered.
         /// As the app assumes #FFFFFF and rgba(255,255,255,1) to be the same colors, but can display only two: #FFFFFF & any other first matched format
         /// </summary>
-        public ProjectColour Orig;
-        public Color Color = new Color();
+        public ProjectColour PrjOrig;
+
+        public Color DrawingColor = new Color();
         /// <summary>
         /// user choosen color to replace the original
         /// </summary>
@@ -17,8 +18,8 @@ namespace ColorsChanger.ChangerApp.Models
 
         public UniqueColor(ProjectColour orig, Color color)
         {
-            Orig = orig;
-            Color = color;
+            PrjOrig = orig;
+            DrawingColor = color;
         }
     }
 }
