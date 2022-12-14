@@ -14,7 +14,9 @@ namespace ColorsChanger.ChangerApp.Models.ReadColours
 
         public override string GetStandarizedName(string rawValue)
         {
-            return rawValue.ToLower();
+            bool isNoAlpha = (rawValue.Length == 7);
+            
+            return isNoAlpha ? rawValue.ToLower()+"ff" : rawValue.ToLower();
         }
     }
 }

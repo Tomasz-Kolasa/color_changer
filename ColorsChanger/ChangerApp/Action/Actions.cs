@@ -31,8 +31,13 @@ namespace ColorsChanger.ChangerApp.Action
         /// </summary>
         public void button1_Click(object sender, Control.ControlCollection flowLayoutPanel1_controls, CheckBox checkBox)
         {
+            Button btn = sender as Button;
+            btn.Enabled = false;
+
             var colorReplacer = new ReplaceColors(_app.filesManager, flowLayoutPanel1_controls);
             colorReplacer.Replace(checkBox.Checked);
+
+            MessageBox.Show("Kolory zostały zmienione.");
         }
     }
 }

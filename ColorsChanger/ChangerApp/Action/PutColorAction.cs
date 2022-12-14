@@ -45,10 +45,8 @@ namespace ColorsChanger.ChangerApp.Action
             }
             else
             {
-                MessageBox.Show("Nieprawidłowa wartość, kolor nie zostanie zastąpiony.");
+                MessageBox.Show($"Nieprawidłowa wartość, kolor nie zostanie zastąpiony. Wprowadź wartość koloru w pierwotnym formacie ({colorType}).");
             }
-
-            //MessageBox.Show($"Name: {_row.Name.ToString()}, type: {colorType}");
         }
 
 

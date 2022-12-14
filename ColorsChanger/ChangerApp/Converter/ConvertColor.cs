@@ -1,6 +1,9 @@
 ﻿using ColorsChanger.ChangerApp.Models.ReadColours;
 using System.Text;
 using System.Text.RegularExpressions;
+using static System.Net.Mime.MediaTypeNames;
+using System.Windows.Forms;
+using System.Drawing;
 
 namespace ColorsChanger.ChangerApp.Converter
 {
@@ -52,6 +55,23 @@ namespace ColorsChanger.ChangerApp.Converter
             alpha = (int)(a * colorAlphaMax);
 
             return Color.FromArgb(alpha, red, green, blue);
+        }
+
+        /// <summary>
+        /// Translates Drawing.Color.A to alpha to Html Rgba standard (0-1 value)
+        /// </summary>
+        /// <param name="color">Drawing.Color color</param>
+        static private string CalculateRgbaAlpha(Color color)
+        {
+            if (color.A == 0)
+                return "0";
+
+            double ratio = (double)color.A / (double)255;
+            double a = Math.Round(ratio * (double)1, 2);
+
+            var rgbA = a.ToString().Replace(",", ".");
+
+            return rgbA;
         }
 
         static public Color RgbToColor(RgbColour rgbColour)
@@ -153,6 +173,39 @@ namespace ColorsChanger.ChangerApp.Converter
             var h8val = $"#{rgb}{alpha}";
 
             return new Hex8Colour(h8val);
+        }
+
+        static public Hex6Colour DrawColorToHex6(Color color)
+        {
+            var rgb = color.Name.Substring(2);
+
+            var h6val = $"#{rgb}";
+
+            return new Hex6Colour(h6val);
+        }
+
+        static public RgbaColour DrawColorToRgba(Color color)
+        {
+            var alpha = CalculateRgbaAlpha(color);
+
+            var red = color.R.ToString();
+            var green = color.G.ToString();
+            var blue = color.B.ToString();
+
+            var val = $"rgba({red},{green},{blue},{alpha})";
+
+            return new RgbaColour(val);
+        }
+
+        static public RgbColour DrawColorToRgb(Color color)
+        {
+            var red = color.R.ToString();
+            var green = color.G.ToString();
+            var blue = color.B.ToString();
+
+            var val = $"rgb({red},{green},{blue})";
+
+            return new RgbColour(val);
         }
     }
 }

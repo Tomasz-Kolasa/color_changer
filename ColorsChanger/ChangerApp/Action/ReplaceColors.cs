@@ -22,7 +22,7 @@ namespace ColorsChanger.ChangerApp.Action
         {
             DeterminateNewColors(isUseHtmlColors);
 
-            _filesManager.ReplaceColorsInFiles();
+            _filesManager.ReplaceColorsInFiles(isUseHtmlColors);
         }
 
         private void DeterminateNewColors(bool isUseHtmlColors)
@@ -45,7 +45,7 @@ namespace ColorsChanger.ChangerApp.Action
                 }
                 else
                 {
-                    var drawCol = ConvertColor.TypeToColor(colorType, outHtmlColor);
+                    var drawCol = ConvertColor.TypeToColor("Hex8Colour", outHtmlColor);
                     _uniqueColors.ElementAt(idx).DrawingReplace = drawCol;
                 }
             }

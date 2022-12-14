@@ -39,9 +39,9 @@ namespace ColorsChanger.ChangerApp.Files
             return _colorReader.GetUniqueColorsList();
         }
 
-        public void ReplaceColorsInFiles()
+        public void ReplaceColorsInFiles(bool isUseHtmlColors)
         {
-            _colorReplacer.ReplaceColorsInFiles();
+            _colorReplacer.ReplaceColorsInFiles(isUseHtmlColors);
         }
 
         public string[] GetProjectFilesPaths()
