@@ -22,7 +22,7 @@ namespace ColorsChanger.ChangerApp.Files
                     Environment.CurrentDirectory).Parent.Parent.FullName,
                 "ChangerApp","Files","src");
 
-            _filesPaths = Directory.GetFiles(_projectPath, "*.*", SearchOption.AllDirectories);
+            _filesPaths = Directory.GetFiles(_projectPath, "*.css", SearchOption.AllDirectories);
 
             _colorReader = new ColorReader(this);
             _colorReplacer = new ColorReplacer(this);

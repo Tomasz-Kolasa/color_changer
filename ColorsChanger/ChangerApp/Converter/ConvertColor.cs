@@ -1,9 +1,5 @@
 ﻿using ColorsChanger.ChangerApp.Models.ReadColours;
-using System.Text;
 using System.Text.RegularExpressions;
-using static System.Net.Mime.MediaTypeNames;
-using System.Windows.Forms;
-using System.Drawing;
 
 namespace ColorsChanger.ChangerApp.Converter
 {
@@ -48,7 +44,7 @@ namespace ColorsChanger.ChangerApp.Converter
             green = int.Parse(values[1].Trim());
             blue = int.Parse(values[2].Trim());
 
-            float a = float.Parse(values[3].Replace(".",",").Trim());
+            float a = float.Parse(values[3].Replace(".",",").Trim()); // 0-1
 
             float colorAlphaMax = 255;
 
@@ -92,15 +88,27 @@ namespace ColorsChanger.ChangerApp.Converter
             return Color.FromArgb(alpha, red, green, blue);
         }
 
-        static public string ToHtml(Color color)
+        static public string ToHtml(Color color, string colorType )
         {
-            var html = ColorTranslator.ToHtml(color);
+            // in case its a fully qualified namespace extract type name from namespace
+            var arr = colorType.Split(".");
+            colorType = arr[arr.Length - 1];
 
-            Type t = color.GetType();
+            string html = ColorTranslator.ToHtml(color);
 
-            if(color.A.ToString() != "255" )
+            if (colorType == "Hex6Colour" || colorType == "RgbColour")
             {
-                html += color.A.ToString("X");
+                // do nothing
+            }
+            else if(colorType == "Hex8Colour" || colorType=="RgbaColour")
+            {
+                string alphaHex = color.A.ToString("X");
+                if (alphaHex.Length == 1) alphaHex = "0" + alphaHex;
+                html += alphaHex;
+            }
+            else
+            {
+                throw new Exception("Incorrect color type.");
             }
             
             return html;
@@ -115,6 +123,7 @@ namespace ColorsChanger.ChangerApp.Converter
                 case "Hex6Colour":
                     color = Hex6ToColor(new Hex6Colour(val)); break;
                 case "Hex8Colour":
+                    if (val.Length != 9) throw new Exception("Invalid Hex8 Pattern!");
                     color = Hex8ToColor(new Hex8Colour(val)); break;
                 case "RgbaColour":
                     color = RgbaToColor(new RgbaColour(val)); break;

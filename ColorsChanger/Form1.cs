@@ -35,11 +35,11 @@ namespace ColorsChanger
                 row.groupBoxRow.Name = id + ":" + colorType;
                     
 
-                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig);
+                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig, color.PrjOrig.GetType().ToString());
                 row.tbInputColourOrig.Text = color.PrjOrig.StandarizedValue;
                 row.panelInColour.BackColor = color.DrawingOrig;
 
-                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig);
+                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig, color.PrjOrig.GetType().ToString());
                 row.tbOutputColouroOrig.Text = color.PrjOrig.StandarizedValue;
                 row.panelOutColour.BackColor = color.DrawingOrig;
 

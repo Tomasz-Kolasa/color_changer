@@ -27,6 +27,8 @@ namespace ColorsChanger.ChangerApp.Action
                 }
                 else if(colorType=="Hex8Colour")
                 {
+                    if(textBoxVal.Length != 9) throw new Exception("Invalid Hex8 Pattern!");
+
                     drawColor = ConvertColor.Hex8ToColor(new Hex8Colour(textBoxVal));
                 } else if(colorType=="RgbColour")
                 {
@@ -39,7 +41,8 @@ namespace ColorsChanger.ChangerApp.Action
                
 
                 // change row colors
-                _row.Controls.Find("tbOutputColourHTML", false)[0].Text = ConvertColor.ToHtml(drawColor);
+                _row.Controls.Find("tbOutputColourHTML", false)[0].Text =
+                    ConvertColor.ToHtml(drawColor, colorType);
                 _row.Controls.Find("panelOutColourOuter", false)[0].
                     Controls.Find("panelOutColour", false)[0].BackColor = drawColor;
             }

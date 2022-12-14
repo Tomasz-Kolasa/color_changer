@@ -45,7 +45,12 @@ namespace ColorsChanger.ChangerApp.Action
                 }
                 else
                 {
+                    bool isHex6Color = (outHtmlColor.Length == 7)?true:false;
+                    var alphaVal = "ff";
+                    if (isHex6Color) outHtmlColor += alphaVal;
+
                     var drawCol = ConvertColor.TypeToColor("Hex8Colour", outHtmlColor);
+
                     _uniqueColors.ElementAt(idx).DrawingReplace = drawCol;
                 }
             }
