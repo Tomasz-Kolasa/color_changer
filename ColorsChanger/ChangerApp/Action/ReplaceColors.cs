@@ -1,11 +1,6 @@
 ﻿using ColorsChanger.ChangerApp.Converter;
 using ColorsChanger.ChangerApp.Files;
 using ColorsChanger.ChangerApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static System.Windows.Forms.Control;
 
 namespace ColorsChanger.ChangerApp.Action
@@ -44,11 +39,14 @@ namespace ColorsChanger.ChangerApp.Action
 
                 if (isUserInputColorValid && !isUseHtmlColors)
                 {
-                    _uniqueColors.ElementAt(idx).ReplaceVal = userInputNewColor;
+                    var drawCol = ConvertColor.TypeToColor(colorType, userInputNewColor);
+
+                    _uniqueColors.ElementAt(idx).DrawingReplace = drawCol;
                 }
                 else
                 {
-                    _uniqueColors.ElementAt(idx).ReplaceVal = outHtmlColor;
+                    var drawCol = ConvertColor.TypeToColor(colorType, outHtmlColor);
+                    _uniqueColors.ElementAt(idx).DrawingReplace = drawCol;
                 }
             }
         }

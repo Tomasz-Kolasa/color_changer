@@ -35,13 +35,13 @@ namespace ColorsChanger
                 row.groupBoxRow.Name = id + ":" + colorType;
                     
 
-                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.DrawingColor);
+                row.tbInputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig);
                 row.tbInputColourOrig.Text = color.PrjOrig.StandarizedValue;
-                row.panelInColour.BackColor = color.DrawingColor;
+                row.panelInColour.BackColor = color.DrawingOrig;
 
-                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.DrawingColor);
+                row.tbOutputColourHTML.Text = ConvertColor.ToHtml(color.DrawingOrig);
                 row.tbOutputColouroOrig.Text = color.PrjOrig.StandarizedValue;
-                row.panelOutColour.BackColor = color.DrawingColor;
+                row.panelOutColour.BackColor = color.DrawingOrig;
 
                 row.tbOutputColouroOrig.Leave += new EventHandler((sender, e) => _actions.tbOutputColourRgba_Leave(sender, e, row.groupBoxRow));
 

@@ -144,5 +144,15 @@ namespace ColorsChanger.ChangerApp.Converter
 
             return Regex.IsMatch(val, pattern);
         }
+
+        static public Hex8Colour DrawColorToHex8(Color color)
+        {
+            var alpha = color.Name.Substring(0,2);
+            var rgb = color.Name.Substring(2);
+
+            var h8val = $"#{rgb}{alpha}";
+
+            return new Hex8Colour(h8val);
+        }
     }
 }

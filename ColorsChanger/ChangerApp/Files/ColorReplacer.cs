@@ -1,4 +1,7 @@
-﻿using ColorsChanger.ChangerApp.Models.ReadColours;
+﻿using ColorsChanger.ChangerApp.Converter;
+using ColorsChanger.ChangerApp.Models;
+using ColorsChanger.ChangerApp.Models.ReadColours;
+using System.Drawing;
 using System.Text.RegularExpressions;
 
 namespace ColorsChanger.ChangerApp.Files
@@ -53,13 +56,16 @@ namespace ColorsChanger.ChangerApp.Files
                 var uniqueList = _filesManager.GetUniqueColorsList();
 
                 // for each colour found in file there is a replace color on unique colors list
-                var replaceColor = uniqueList.Where(c => c.PrjOrig.StandarizedValue == hex8Color.StandarizedValue);
+                var item = uniqueList.Where(uc => uc.DrawingOrig.Equals(ConvertColor.Hex8ToColor(hex8Color))).ToList();
+                //var replaceColor = uniqueList.Where(c => c.PrjOrig.StandarizedValue == hex8Color.StandarizedValue);
 
-                // replace the color matched in the current file with new one
-                h8Arr[i] = replaceColor.First().ReplaceVal;
+                // replace the color with matched replacement
+                var replaceDrawColor = item.First().DrawingReplace;
+                var replacePrjHex8 = ConvertColor.DrawColorToHex8(replaceDrawColor);
+                h8Arr[i] = replacePrjHex8.StandarizedValue;
             }
 
-            // now we have hex8Arr array of new colors to replace the placeholders _placeholder in file
+            // now we have hex8Arr array of new colors to replace the placeholders _placeholder with
             var rx = new Regex(Hex8Colour.Placeholder);
 
             foreach (var newColor in h8Arr)
